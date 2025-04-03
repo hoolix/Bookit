@@ -6,7 +6,11 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* Route for the Login and Signup Page */}
                 <Route path="/" element={<LoginSignup />} />
+                <Route path="/signup" element={<LoginSignup />} />
+
+                {/* Route for the Home Page */}
                 <Route path="/home" element={<Home />} />
             </Routes>
         </BrowserRouter>
