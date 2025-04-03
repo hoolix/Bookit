@@ -142,15 +142,15 @@ function LoginSignup() {
     const handleChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
     return (
-        <div style={{
+        <Box sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "100vh",
-            backgroundColor: "#f4f4f4"
+            backgroundColor: "#f4f4f4",
+            minHeight: "100vh",
         }}>
             <ToastContainer/>
-            <Card style={{width: 400, padding: 20, boxShadow: "0px 4px 10px rgba(0,0,0,0.1)", borderRadius: 10}}>
+            <Card style={{width: 400, padding: 20, margin: 20, boxShadow: "0px 4px 10px rgba(0,0,0,0.1)", borderRadius: 10}}>
                 <CardContent>
                     <Typography variant="h5" align="center" gutterBottom>{isSignup ? "Sign Up" : "Login"}</Typography>
                     <form onSubmit={handleSubmit}>
@@ -228,7 +228,7 @@ function LoginSignup() {
                     </Typography>
                 </CardContent>
             </Card>
-        </div>
+        </Box>
     );
 }
 
