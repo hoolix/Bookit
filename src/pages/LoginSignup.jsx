@@ -21,7 +21,6 @@ function LoginSignup() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const navigate = useNavigate();
     const {token, setUser, setToken} = useStateContext();
-    const [errors, setErrors] = useState(null);
     const [businessTypes, setBusinessTypes] = useState([]);
     const location = useLocation(); // Get current URL path
 
@@ -105,24 +104,24 @@ function LoginSignup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // if (isSignup && formData.password !== formData.password_confirmation) {
-        //     alert("Passwords do not match");
-        //     return;
-        // }
-
         const endpoint = isSignup ? "/signup" : "/login";
 
         const payload = isSignup
             ? formData
-            : {email: formData.email, username: formData.username, password: formData.password};
+            : { email: formData.email, username: formData.username, password: formData.password };
 
-
-        console.log(payload);
+        // console.log(payload);
         axiosClient.post(endpoint, payload)
-            .then(({data}) => {
-                setUser(data.user);
-                setToken(data.token);
-                navigate("/home");
+            .then(({ data }) => {
+                if (!isSignup) {
+                    // Only set user and token if logging in
+                    setUser(data.user);
+                    setToken(data.token);
+                    navigate("/home");
+                } else {
+                    // Navigate to verification page after signup, passing email as a query parameter
+                    navigate("/verify", { state: { email: formData.email } });
+                }
             })
             .catch(err => {
                 const response = err.response;
@@ -134,8 +133,7 @@ function LoginSignup() {
                     // Fallback error message
                     ToastNotification("An unexpected error occurred!", "error");
                 }
-            })
-
+            });
     };
 
 
